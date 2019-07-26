@@ -16,6 +16,14 @@ module.exports = {
                 }
             },
             {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ]
+            },
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
@@ -34,11 +42,11 @@ module.exports = {
     },
     output: {
         path: __dirname + '/dist',
-        filename: 'bundle.js',
+        filename: '[name].[chunkhash].js',
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./src/index.html",
+            template: "./public/index.html",
             filename: "./index.html"
         }),
         new ErrorOverlayPlugin()

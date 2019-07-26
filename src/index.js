@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const App = () => {
-    const f = [1,2,3,4,5];
-    const e = {...f};
+    const f = [1, 2, 3, 4, 5];
+    const e = { ...f };
     return <>
         <h1>Works</h1>
         {
