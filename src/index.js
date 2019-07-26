@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./styles.scss";
 
 const App = () => {
     const f = [1, 2, 3, 4, 5];
