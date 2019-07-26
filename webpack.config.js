@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
+
 module.exports = {
     module: {
         rules: [
@@ -30,10 +32,19 @@ module.exports = {
             }
         ]
     },
+    output: {
+        path: __dirname + '/dist',
+        filename: 'bundle.js',
+    },
     plugins: [
         new HtmlWebPackPlugin({
             template: "./src/index.html",
             filename: "./index.html"
-        })
-    ]
+        }),
+        new ErrorOverlayPlugin()
+    ],
+    devServer: {
+        port: 3000
+    },
+    devtool: 'cheap-module-source-map'
 };
