@@ -5,6 +5,7 @@ const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 module.exports = new Promise(function (resolve) {
     // TODO: Colocar esta config em algum lugar, fora do projeto rs
     resolve({
+        entry: "./src/index.tsx",
         module: {
             rules: [
                 {
@@ -26,11 +27,8 @@ module.exports = new Promise(function (resolve) {
                     ]
                 },
                 {
-                    test: /\.(js|jsx)$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: "babel-loader"
-                    }
+                    test: /\.tsx?$/,
+                    loader: 'awesome-typescript-loader'
                 },
                 {
                     test: /\.html$/,
