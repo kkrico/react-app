@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import "./styles.scss";
 
-interface Page {
+interface IApp {
     color: string;
 }
 
-class App extends React.Component<Page, {}> {
+class App extends React.Component<IApp, {}> {
 
     render() {
         return (<div>
@@ -17,6 +17,4 @@ class App extends React.Component<Page, {}> {
     }
 }
 
-
-ReactDOM.render(<App color="red" />, document.getElementById("root")
-);
+ReactDOM.render(<App color="red" />, document.getElementById("root"));
