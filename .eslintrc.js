@@ -1,23 +1,40 @@
-module.exports =  {
-    parser:  '@typescript-eslint/parser', // Specifies the ESLint parser
-    extends: [
-      'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-      'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
+module.exports = {
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-key": 2,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-uses-react": 2,
+    "react/jsx-no-duplicate-props": 2,
+    "react/jsx-no-undef": 2,
+    "react/no-multi-comp": 2,
+    "react/jsx-indent-props": [
+      "error",
+      2
     ],
-    parserOptions: {
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType:  'module', // Allows for the use of imports
-    ecmaFeatures: {
-      jsx: true, // Allows for the parsing of JSX
-        },
-    },
-    rules: {
-        // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-        // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    },
-    settings: {
-      react: {
-        version:  'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
-        },
-    },
-};
+    "react/jsx-pascal-case": 2,
+    "react/prop-types": 2,
+    "react/jsx-indent": [
+      "error",
+      4
+    ],
+    "indent": [
+      "error",
+      4
+    ]
+  }
+} 

@@ -41,7 +41,7 @@ module.exports = new Promise(function (resolve) {
                 })
             });
         }
-        
+
         return {
             gerarPorta: function () {
                 const portaPadrao = 3000;
@@ -54,9 +54,9 @@ module.exports = new Promise(function (resolve) {
 
     PortManager.gerarPorta();
 }).then(function (porta) {
-    console.log("Rodando na porta " +porta);
+    console.log("Rodando na porta " + porta);
     return {
-        entry: "./src/index.tsx",
+        entry: "./src/index.js",
         module: {
             rules: [
                 {
@@ -66,7 +66,7 @@ module.exports = new Promise(function (resolve) {
                     loader: "eslint-loader",
                     options: {
                         emitWarning: true,
-                        configFile: "./.eslintrc.json"
+                        configFile: "./.eslintrc.js"
                     }
                 },
                 {
@@ -78,8 +78,11 @@ module.exports = new Promise(function (resolve) {
                     ]
                 },
                 {
-                    test: /\.tsx?$/,
-                    loader: 'awesome-typescript-loader'
+                    test: /\.(js|jsx)$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: "babel-loader"
+                    }
                 },
                 {
                     test: /\.html$/,
