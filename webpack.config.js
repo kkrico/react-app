@@ -2,6 +2,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const net = require('net');
+const path = require("path");
 
 module.exports = new Promise(function (resolve) {
     var portInUse = function (port, callback) {
@@ -41,7 +42,7 @@ module.exports = new Promise(function (resolve) {
                 })
             });
         }
-        
+
         return {
             gerarPorta: function () {
                 const portaPadrao = 3000;
@@ -54,9 +55,21 @@ module.exports = new Promise(function (resolve) {
 
     PortManager.gerarPorta();
 }).then(function (porta) {
-    console.log("Rodando na porta " +porta);
+    console.log("Rodando na porta " + porta);
     return {
-        entry: "./src/index.tsx",
+        entry: {
+            singleSpaEntry: './src/singleSpaEntry.js',
+            store: './src/store.js'
+        },
+        output: {
+            filename: '[name].js',
+            path: path.resolve(__dirname, 'release'),
+            libraryTarget: 'amd',
+            library: 'reactApp'
+        },
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js', '.jsx']
+        },
         module: {
             rules: [
                 {
@@ -66,7 +79,7 @@ module.exports = new Promise(function (resolve) {
                     loader: "eslint-loader",
                     options: {
                         emitWarning: true,
-                        configFile: "./.eslintrc.json"
+                        configFile: "./.eslintrc.js"
                     }
                 },
                 {
@@ -78,7 +91,7 @@ module.exports = new Promise(function (resolve) {
                     ]
                 },
                 {
-                    test: /\.tsx?$/,
+                    test: /\.(js|tsx)?$/,
                     loader: 'awesome-typescript-loader'
                 },
                 {
@@ -91,20 +104,22 @@ module.exports = new Promise(function (resolve) {
                 }
             ]
         },
-        output: {
-            path: __dirname + '/dist',
-            filename: '[name].[chunkhash].js',
-        },
         plugins: [
-            new HtmlWebPackPlugin({
-                template: "./public/index.html",
-                filename: "./index.html"
-            }),
-            new ErrorOverlayPlugin()
+            // new HtmlWebPackPlugin({
+            //     template: "./public/index.html",
+            //     filename: "./index.html"
+            // }),
+            // new ErrorOverlayPlugin()
         ],
+        mode: 'development',
+        devtool: 'eval-source-map',
         devServer: {
-            port: porta
-        },
-        devtool: 'cheap-module-source-map'
+            port: porta,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+                "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+            }
+        }
     }
 })
