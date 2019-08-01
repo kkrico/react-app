@@ -1,10 +1,61 @@
 /* eslint-disable no-undef */
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
+const net = require('net');
 
 module.exports = new Promise(function (resolve) {
-    // TODO: Colocar esta config em algum lugar, fora do projeto rs
-    resolve({
+    var portInUse = function (port, callback) {
+        var server = net.createServer(function (socket) {
+            socket.write('Echo server\r\n');
+            socket.pipe(socket);
+        });
+
+        server.listen(port, '127.0.0.1');
+        server.on('error', function () {
+            callback(true);
+        });
+        server.on('listening', function () {
+            server.close();
+            callback(false);
+        });
+    };
+
+    let PortManager = (function () {
+        let _gerarPorta = numero => {
+
+            return new Promise(function (internalResolve) {
+
+                portInUse(numero, function (emUso) {
+
+                    if (!emUso) {
+                        internalResolve(numero);
+                        return;
+                    }
+
+                    internalResolve(
+
+                        _gerarPorta(numero + 1)
+                            .then(n => n)
+
+                    )
+                })
+            });
+        }
+        
+        return {
+            gerarPorta: function () {
+                const portaPadrao = 3000;
+                _gerarPorta(portaPadrao).then(function (numeroFinal) {
+                    resolve(numeroFinal);
+                })
+            }
+        }
+    })();
+
+    PortManager.gerarPorta();
+}).then(function (porta) {
+    console.log("Rodando na porta " +porta);
+    return {
         entry: "./src/index.tsx",
         module: {
             rules: [
@@ -52,8 +103,8 @@ module.exports = new Promise(function (resolve) {
             new ErrorOverlayPlugin()
         ],
         devServer: {
-            port: 3000
+            port: porta
         },
         devtool: 'cheap-module-source-map'
-    })
+    }
 })
