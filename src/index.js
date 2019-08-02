@@ -1,18 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.scss";
+import RootComponent from "./root.component";
 
-const App = () => {
-    const f = [1, 2, 3, 4, 5];
-    const e = { ...f };
-    return <>
-        <h1>Works</h1>
-        {
-            JSON.stringify(e)
+const globalEventDistributor = () => {
+
+}
+
+const store = {
+    getState: () => {
+        return {
+            count: 1
         }
-    </>
+    },
+    dispatch: () => {
+
+    },
+    subscribe: () => {
+
+    }
 }
 
 const rootElement = document.getElementById("root");
-
-ReactDOM.render(<App></App>, rootElement); 
+ReactDOM.render(<RootComponent globalEventDistributor={globalEventDistributor} store={store}></RootComponent>, rootElement);
