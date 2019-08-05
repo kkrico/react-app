@@ -2,24 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.scss";
 import RootComponent from "./root.component";
+import { createStore, combineReducers } from "redux";
+import { storeInstance } from "./store";
 
 const globalEventDistributor = () => {
 
 }
 
-const store = {
-    getState: () => {
-        return {
-            count: 1
-        }
-    },
-    dispatch: () => {
-
-    },
-    subscribe: () => {
-
-    }
-}
-
 const rootElement = document.getElementById("root");
-ReactDOM.render(<RootComponent globalEventDistributor={globalEventDistributor} store={store}></RootComponent>, rootElement);
+ReactDOM.render(<RootComponent globalEventDistributor={globalEventDistributor} store={storeInstance}></RootComponent>, rootElement);

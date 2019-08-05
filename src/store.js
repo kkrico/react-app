@@ -1,22 +1,26 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 const initialState = {
     count: 0
 };
 
-function reducer(state = initialState, action) {
-    switch(action.type) {
-    case 'INCREMENT':
-        return {
-            count: state.count + 1
-        };
-    case 'DECREMENT':
-        return {
-            count: state.count - 1
-        };
-    default:
-        return state;
+function counterReducer(state = initialState, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return {
+                count: state.count + 1
+            };
+        case 'DECREMENT':
+            return {
+                count: state.count - 1
+            };
+        default:
+            return state;
     }
 }
 
-export const storeInstance = createStore(reducer);
+const Reducer = combineReducers({
+    Counter: counterReducer
+})
+
+export const storeInstance = createStore(Reducer);
