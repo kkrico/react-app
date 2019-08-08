@@ -5,6 +5,7 @@ import "./sass/main.scss";
 import AsideMenu from "./componentes/AsideMenu"
 import NavBar from "./componentes/NavBar";
 
+console.log(process.env.DB_HOST);
 export default class Root extends React.Component {
 
     state = {
