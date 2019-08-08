@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles.scss";
 import RootComponent from "./root.component";
 import { createStore, combineReducers } from "redux";
 import { storeInstance } from "./store";

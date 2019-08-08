@@ -1,0 +1,27 @@
+/* Theme style (colors & sizes) */
+.fa, .far, .fas { font-family: FontAwesome !important; }
+i {
+    font-style: unset;
+}
+@import "theme-default";
+@import "~bulma/bulma.sass";
+
+/* Mixins */
+@import "mixins";
+
+/* Theme components */
+@import "nav-bar";
+@import "aside";
+@import "title-bar";
+@import "hero-bar";
+@import "card";
+@import "table";
+@import "tiles";
+@import "form";
+@import "main-section";
+@import "modal";
+@import "footer";
+@import "misc";
+
+/* Animate.css custom build (just selected animations to minimize bundle size) */
+@import "../css/animate.min.css";

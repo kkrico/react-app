@@ -1,7 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import Counter from './counter';
-
+import "./sass/main.scss";
+import AsideMenu from "./componentes/AsideMenu"
+import NavBar from "./componentes/NavBar";
 
 export default class Root extends React.Component {
 
@@ -16,18 +18,9 @@ export default class Root extends React.Component {
 
     render() {
 
-        let ret = <div></div>;
-
-        if (this.state.store && this.state.globalEventDistributor) {
-            ret =
-                <Provider store={this.state.store}>
-                    <div style={{ marginTop: 100 }}>
-                        This was rendered by App1, which is written in React.
-                        <Counter globalEventDistributor={this.state.globalEventDistributor} />
-                    </div>
-                </Provider>
-        }
-
-        return ret;
+        return <div id="app">
+            <NavBar />
+            <AsideMenu />
+        </div>
     }
 }
